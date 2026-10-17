@@ -54,7 +54,7 @@ export function Stats() {
     { value: "700+", label: "DSA Problems Solved" },
     { value: "100+", label: "CP Contests" },
     { value: "3★", label: "CodeChef Rating" },
-    { value: "8.39", label: "Current CGPA" },
+    { value: "8.33", label: "Current CGPA" },
     { value: "4+", label: "Production Projects" },
     { value: "SIH", label: "2025 Participant" }
   ];

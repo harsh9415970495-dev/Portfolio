@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { defaultPortfolioData } from "../data/defaultData";
 
-const STORAGE_KEY = "harsh_portfolio_data_v2";
+const STORAGE_KEY = "harsh_portfolio_data_v3";
+const OLD_STORAGE_KEY = "harsh_portfolio_data_v2";
 const ADMIN_AUTH_KEY = "harsh_owner_auth_session";
 const ADMIN_PASSKEY_KEY = "harsh_owner_passkey";
 const DEFAULT_PASSKEY = "harsh2026";
@@ -11,9 +12,15 @@ const PortfolioContext = createContext(null);
 export function PortfolioProvider({ children }) {
   const [data, setData] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(OLD_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
+        if (parsed.personalInfo?.cgpa === "8.39/10" || parsed.personalInfo?.cgpa === "8.39") {
+          parsed.personalInfo.cgpa = "8.33/10";
+        }
+        if (Array.isArray(parsed.stats)) {
+          parsed.stats = parsed.stats.map(s => s.value === "8.39" ? { ...s, value: "8.33" } : s);
+        }
         return {
           ...defaultPortfolioData,
           ...parsed,

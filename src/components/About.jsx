@@ -93,7 +93,7 @@ export function About() {
                     <MapPin size={12} className="text-primary" /> Lucknow, India
                   </span>
                   <span className="px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 font-mono font-bold border border-green-500/20">
-                    CGPA: {personalInfo.cgpa || "8.39/10"}
+                    CGPA: {personalInfo.cgpa || "8.33/10"}
                   </span>
                 </div>
               </div>

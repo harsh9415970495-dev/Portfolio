@@ -13,7 +13,7 @@ export const defaultPortfolioData = {
     college: "Institute of Engineering and Technology (IET), Lucknow",
     degree: "Bachelor of Technology in Computer Science and Engineering",
     duration: "Aug 2024 – May 2028",
-    cgpa: "8.39/10",
+    cgpa: "8.33/10",
     summary:
       "Computer Science undergraduate at Institute of Engineering and Technology (IET), Lucknow with a strong interest in Software Development, Backend Engineering, Artificial Intelligence, and Competitive Programming. Experienced in developing scalable web applications using React, Node.js, Express.js, FastAPI, and PostgreSQL. Strong foundation in Data Structures and Algorithms, DBMS, Operating Systems, and Computer Networks with 700+ DSA problems solved and participation in 100+ coding contests."
   },
@@ -239,7 +239,7 @@ export const defaultPortfolioData = {
     { value: "700+", label: "DSA Problems Solved" },
     { value: "100+", label: "Coding Contests" },
     { value: "3★", label: "CodeChef Rating" },
-    { value: "8.39", label: "Current CGPA" },
+    { value: "8.33", label: "Current CGPA" },
     { value: "4+", label: "Production Projects" },
     { value: "SIH", label: "2025 Participant" }
   ]

@@ -32,7 +32,7 @@ export function Hero() {
             {/* College & CGPA badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-textMuted mb-4">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-ping" />
-              <span>{personalInfo.college || "IET Lucknow"} • CGPA: {personalInfo.cgpa || "8.39"}</span>
+              <span>{personalInfo.college || "IET Lucknow"} • CGPA: {personalInfo.cgpa || "8.33/10"}</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-white">
@@ -168,7 +168,7 @@ export function Hero() {
                 <div>&quot;name&quot;: <span className="text-white">&quot;Harsh Mishra&quot;</span>,</div>
                 <div>&quot;college&quot;: <span className="text-primary">&quot;IET Lucknow&quot;</span>,</div>
                 <div>&quot;batch&quot;: <span className="text-accent">&quot;2024 - 2028 (B.Tech CSE)&quot;</span>,</div>
-                <div>&quot;cgpa&quot;: <span className="text-green-400">8.39</span>,</div>
+                <div>&quot;cgpa&quot;: <span className="text-green-400">8.33</span>,</div>
                 <div>&quot;dsa_solved&quot;: <span className="text-yellow-400">&quot;700+ across platforms&quot;</span>,</div>
                 <div>&quot;codechef&quot;: <span className="text-yellow-400">&quot;3-Star (3★)&quot;</span>,</div>
                 <div>&quot;hackathon&quot;: <span className="text-white">&quot;Smart India Hackathon 2025&quot;</span>,</div>
