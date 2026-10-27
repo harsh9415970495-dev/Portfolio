@@ -15,11 +15,16 @@ export function PortfolioProvider({ children }) {
       const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(OLD_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.personalInfo?.cgpa === "8.39/10" || parsed.personalInfo?.cgpa === "8.39") {
+        if (parsed.personalInfo?.cgpa === "8.39/10" || parsed.personalInfo?.cgpa === "8.39" || parsed.personalInfo?.cgpa === "833") {
           parsed.personalInfo.cgpa = "8.33/10";
         }
         if (Array.isArray(parsed.stats)) {
-          parsed.stats = parsed.stats.map(s => s.value === "8.39" ? { ...s, value: "8.33" } : s);
+          parsed.stats = parsed.stats.map(s => {
+            if (s.value === "8.39" || s.value === "833" || (s.label?.toLowerCase().includes("cgpa") && s.value === "833")) {
+              return { ...s, value: "8.33" };
+            }
+            return s;
+          });
         }
         return {
           ...defaultPortfolioData,

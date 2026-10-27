@@ -55,17 +55,25 @@ export function About() {
           >
             {/* Profile Avatar Frame */}
             <div className="relative group mx-auto w-3/4 md:w-full">
-              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl group-hover:bg-primary/30 transition-colors duration-500" />
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 glass-card flex items-center justify-center bg-surfaceHighlight/50">
+              <div className="absolute inset-0 bg-primary/25 rounded-2xl blur-xl group-hover:bg-primary/40 transition-colors duration-500" />
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 glass-card flex items-center justify-center bg-surfaceHighlight/50 shadow-2xl">
                 <img 
-                  src="/profile.jpg" 
-                  alt="Harsh Mishra" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 object-top"
+                  src={personalInfo.avatar || "/profile.jpg"} 
+                  alt={personalInfo.name || "Harsh Mishra"} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 object-top"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "https://ui-avatars.com/api/?name=Harsh+Mishra&size=512&background=0e0e11&color=3b82f6&font-size=0.33&length=2";
                   }}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/80 via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white/90 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  <span className="font-medium text-white">{personalInfo.name || "Harsh Mishra"}</span>
+                  <span className="text-[11px] font-mono text-primary flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    Available
+                  </span>
+                </div>
               </div>
             </div>
 

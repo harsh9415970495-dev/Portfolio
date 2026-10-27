@@ -804,6 +804,30 @@ export function ProfileEditorModal() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     <div>
+                      <label className="block text-xs font-medium text-textMuted mb-1 flex items-center justify-between">
+                        <span>Profile Photo / Avatar</span>
+                        {bioForm.avatar && (
+                          <span className="text-[10px] text-primary font-mono">Active</span>
+                        )}
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <img 
+                          src={bioForm.avatar || "/profile.jpg"} 
+                          alt="preview" 
+                          className="w-8 h-8 rounded-lg object-cover border border-white/20 shrink-0" 
+                          onError={(e) => { e.target.src = "/profile.jpg"; }}
+                        />
+                        <input
+                          type="text"
+                          value={bioForm.avatar || ""}
+                          placeholder="/profile.jpg"
+                          onChange={(e) => setBioForm({ ...bioForm, avatar: e.target.value })}
+                          className="w-full bg-[#0a0a0c] border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-primary font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
                       <label className="block text-xs font-medium text-textMuted mb-1">
                         Full Name
                       </label>

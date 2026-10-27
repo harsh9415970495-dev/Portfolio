@@ -30,7 +30,13 @@ export function Hero() {
             transition={{ duration: 0.5 }}
           >
             {/* College & CGPA badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-textMuted mb-4">
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-textMuted mb-4 backdrop-blur-sm">
+              <img 
+                src={personalInfo.avatar || "/profile.jpg"} 
+                alt={personalInfo.name || "Harsh Mishra"} 
+                className="w-5 h-5 rounded-full object-cover ring-1 ring-primary/50"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
               <span className="w-2 h-2 rounded-full bg-green-400 animate-ping" />
               <span>{personalInfo.college || "IET Lucknow"} • CGPA: {personalInfo.cgpa || "8.33/10"}</span>
             </div>
@@ -148,12 +154,22 @@ export function Hero() {
         >
           <div className="glass-card rounded-2xl overflow-hidden shadow-2xl border border-white/10">
             <div className="bg-[#18181c] px-4 py-3 flex items-center justify-between border-b border-white/10">
-              <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+              <div className="flex items-center gap-3">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                </div>
+                <div className="flex items-center gap-2 text-xs font-mono text-textMuted">
+                  <img 
+                    src={personalInfo.avatar || "/profile.jpg"} 
+                    alt="avatar" 
+                    className="w-4 h-4 rounded-full object-cover ring-1 ring-primary/40"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                  <span>harsh@iet-lucknow:~</span>
+                </div>
               </div>
-              <div className="text-xs font-mono text-textMuted">harsh@iet-lucknow:~</div>
               <span className="text-[10px] font-mono text-green-400 bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">
                 ACTIVE
               </span>

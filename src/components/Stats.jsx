@@ -2,51 +2,85 @@ import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
 
-function Counter({ end, suffix = "", duration = 2 }) {
-  const [count, setCount] = useState(0);
+function Counter({ end, duration = 1.8 }) {
   const nodeRef = useRef(null);
   const [inView, setInView] = useState(false);
+  const [displayValue, setDisplayValue] = useState(() => {
+    const raw = String(end ?? "");
+    const match = raw.match(/^([^0-9.]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
+    if (!match) return raw;
+    const [, prefix, numStr, suffix] = match;
+    const decimals = numStr.includes(".") ? (numStr.split(".")[1] || "").length : 0;
+    return `${prefix}${(0).toFixed(decimals)}${suffix}`;
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
+        if (entry.isIntersecting) {
+          setInView(true);
+        }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
     if (nodeRef.current) observer.observe(nodeRef.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (!inView) return;
-    if (end === "∞" || typeof end === "string" && isNaN(parseInt(end, 10))) {
+    const raw = String(end ?? "");
+    const match = raw.match(/^([^0-9.]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
+
+    if (!match) {
+      setDisplayValue(raw);
       return;
     }
-    
-    let start = 0;
-    const endNum = parseInt(end.toString().replace(/[^0-9]/g, ""), 10);
-    if (!endNum) return;
-    
-    const stepTime = Math.max(10, Math.floor((duration * 1000) / endNum));
-    const timer = setInterval(() => {
-      start += 1;
-      setCount(start);
-      if (start >= endNum) clearInterval(timer);
-    }, stepTime);
-    
-    return () => clearInterval(timer);
-  }, [inView, end, duration]);
 
-  const isSpecial = end === "∞" || (typeof end === "string" && isNaN(parseInt(end, 10)));
+    if (!inView) {
+      const [, prefix, numStr, suffix] = match;
+      const decimals = numStr.includes(".") ? (numStr.split(".")[1] || "").length : 0;
+      setDisplayValue(`${prefix}${(0).toFixed(decimals)}${suffix}`);
+      return;
+    }
+
+    const [, prefix, numStr, suffix] = match;
+    const target = parseFloat(numStr);
+    if (isNaN(target)) {
+      setDisplayValue(raw);
+      return;
+    }
+
+    const decimals = numStr.includes(".") ? (numStr.split(".")[1] || "").length : 0;
+    const startTime = performance.now();
+    const durationMs = duration * 1000;
+    let animId;
+
+    const update = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = target * ease;
+
+      setDisplayValue(`${prefix}${current.toFixed(decimals)}${suffix}`);
+
+      if (progress < 1) {
+        animId = requestAnimationFrame(update);
+      } else {
+        setDisplayValue(`${prefix}${target.toFixed(decimals)}${suffix}`);
+      }
+    };
+
+    animId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(animId);
+  }, [inView, end, duration]);
 
   return (
     <span ref={nodeRef} className="font-mono tabular-nums">
-      {isSpecial ? end : count}
-      {suffix}
+      {displayValue}
     </span>
   );
 }
+
 
 export function Stats() {
   const { data } = usePortfolio();
@@ -73,7 +107,7 @@ export function Stats() {
               className="flex flex-col items-center justify-center text-center group"
             >
               <div className="text-3xl md:text-4xl font-extrabold text-white mb-1.5 group-hover:text-primary transition-colors font-mono">
-                <Counter end={stat.value} suffix="" />
+                <Counter end={stat.value} />
               </div>
               <div className="text-xs text-textMuted font-medium uppercase tracking-wider">
                 {stat.label}

@@ -6,7 +6,8 @@ import { usePortfolio } from "../context/PortfolioContext";
 export function Navbar({ onOpenTerminal }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { openEditorWithTab, isAdmin } = usePortfolio();
+  const { openEditorWithTab, isAdmin, data } = usePortfolio();
+  const personalInfo = data?.personalInfo || {};
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -32,7 +33,16 @@ export function Navbar({ onOpenTerminal }) {
       )}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="#" className="flex items-center gap-2.5 group">
+          <div className="relative">
+            <img 
+              src={personalInfo.avatar || "/profile.jpg"} 
+              alt={personalInfo.name || "Harsh Mishra"} 
+              className="w-7 h-7 rounded-full object-cover ring-2 ring-primary/40 group-hover:ring-primary transition-all"
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-400 ring-1 ring-[#0a0a0a]" />
+          </div>
           <span className="font-mono font-bold text-xl tracking-tighter text-white">
             <span className="text-primary group-hover:text-accent transition-colors">HM</span>.dev
           </span>

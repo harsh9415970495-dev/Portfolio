@@ -1,6 +1,7 @@
 export const defaultPortfolioData = {
   personalInfo: {
     name: "Harsh Mishra",
+    avatar: "/profile.jpg",
     title: "Computer Science Engineer & Full-Stack Developer",
     phone: "+91 9569015554",
     email: "harsh9415970495@gmail.com",
